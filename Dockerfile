@@ -13,4 +13,4 @@ RUN \
     && cp /httpmon/httpmon /usr/bin/httpmon \
     && rm -r /httpmon
 
-ENTRYPOINT /usr/bin/httpmon --url $FRONTEND_ADDR --headers $HEADER --concurrency $CON --timeout $SLEEP > httpmon.log
+ENTRYPOINT /usr/bin/httpmon --url $FRONTEND_ADDR --headers $HEADER --concurrency $CON --thinktime 1

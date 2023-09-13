@@ -379,7 +379,7 @@ void report(ClientData &_data, AccumulatedData &accData)
 	accData.requests.insert(accData.requests.end(), data.requests.begin(), data.requests.end());
 	auto accStats = computeStatistics(accData.latencies);
 
-	printf("time=%.6f latency=%.3f:%.0f:%.3f:%.3f:%.3f:(%.3f)ms latency95=%.3fms latency99=%.3fms requests=%d option1=%d option2=%d errors=%d throughput=%.0frps ql=%d rr=%.2f%% cr=%.2f%% accRequests=%d accOption1=%d accOption2=%d accLatency=%.3f:%.3f:%.3f:%.3f:%.3f:(%.3f)ms accLatency95=%.3fms accLatency99=%.3fms accOpenQueuing=%d accErrors=%d\n",
+	printf("time=%.6f latency=%.3f:%.3f:%.3f:%.3f:%.3f:(%.3f)ms latency95=%.3fms latency99=%.3fms requests=%d option1=%d option2=%d errors=%d throughput=%.0frps ql=%d rr=%.2f%% cr=%.2f%% accRequests=%d accOption1=%d accOption2=%d accLatency=%.3f:%.3f:%.3f:%.3f:%.3f:(%.3f)ms accLatency95=%.3fms accLatency99=%.3fms accOpenQueuing=%d accErrors=%d\n",
 		reportTime,
 		stats.minimum * 1000,
 		stats.lowerQuartile * 1000,
