@@ -81,11 +81,20 @@ struct AccumulatedData {
 	uint32_t numErrors;
 };
 
+/*
 double inline now()
 {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
 	return (double)tv.tv_usec / 1000000 + tv.tv_sec;
+}
+*/
+
+double inline now()
+{
+	struct timespec monotime;
+	clock_gettime(CLOCK_MONOTONIC, &monotime);
+	return (double)monotime.tv_nsec / 1000000000 + monotime.tv_sec;
 }
 
 template<typename T>
@@ -379,16 +388,16 @@ void report(ClientData &_data, AccumulatedData &accData)
 	accData.requests.insert(accData.requests.end(), data.requests.begin(), data.requests.end());
 	auto accStats = computeStatistics(accData.latencies);
 
-	printf("time=%.6f latency=%.3f:%.3f:%.3f:%.3f:%.3f:(%.3f)ms latency95=%.3fms latency99=%.3fms requests=%d option1=%d option2=%d errors=%d throughput=%.0frps ql=%d rr=%.2f%% cr=%.2f%% accRequests=%d accOption1=%d accOption2=%d accLatency=%.3f:%.3f:%.3f:%.3f:%.3f:(%.3f)ms accLatency95=%.3fms accLatency99=%.3fms accOpenQueuing=%d accErrors=%d\n",
+	printf("time=%.9f latency=%.3f:%.3f:%.3f:%.3f:%.3f:(%.3f)us latency95=%.3fus latency99=%.3fus requests=%d option1=%d option2=%d errors=%d throughput=%.0frps ql=%d rr=%.2f%% cr=%.2f%% accRequests=%d accOption1=%d accOption2=%d accLatency=%.3f:%.3f:%.3f:%.3f:%.3f:(%.3f)us accLatency95=%.3fus accLatency99=%.3fus accOpenQueuing=%d accErrors=%d\n",
 		reportTime,
-		stats.minimum * 1000,
-		stats.lowerQuartile * 1000,
-		stats.median * 1000,
-		stats.upperQuartile * 1000,
-		stats.maximum * 1000,
-		stats.average * 1000,
-		stats.percentile95 * 1000,
-		stats.percentile99 * 1000,
+		stats.minimum * 1000000,
+		stats.lowerQuartile * 1000000,
+		stats.median * 1000000,
+		stats.upperQuartile * 1000000,
+		stats.maximum * 1000000,
+		stats.average * 1000000,
+		stats.percentile95 * 1000000,
+		stats.percentile99 * 1000000,
 		data.numRequests,
 		data.numOption1,
 		data.numOption2,
@@ -401,14 +410,14 @@ void report(ClientData &_data, AccumulatedData &accData)
 		accData.numRequests,
 		accData.numOption1,
 		accData.numOption2,
-		accStats.minimum * 1000,
-		accStats.lowerQuartile * 1000,
-		accStats.median * 1000,
-		accStats.upperQuartile * 1000,
-		accStats.maximum * 1000,
-		accStats.average * 1000,
-		accStats.percentile95 * 1000,
-		accStats.percentile99 * 1000,
+		accStats.minimum * 1000000,
+		accStats.lowerQuartile * 1000000,
+		accStats.median * 1000000,
+		accStats.upperQuartile * 1000000,
+		accStats.maximum * 1000000,
+		accStats.average * 1000000,
+		accStats.percentile95 * 1000000,
+		accStats.percentile99 * 1000000,
 		accData.numOpenQueuing,
 		accData.numErrors
 	);
